@@ -114,18 +114,11 @@ void RoutePlanner::AStarSearch() {
     // TODO: Implement your solution here.
     current_node = start_node;
     current_node->visited = true;
-    AddNeighbors(current_node);
-    int cont = 0;
 
-    while (open_list.size() > 0){
-        current_node = RoutePlanner::NextNode();
-        if (current_node->x == end_node->x && current_node->y == end_node->y){
-            m_Model.path = RoutePlanner::ConstructFinalPath(current_node); 
-            return;
-        }
-        else{
-            AddNeighbors(current_node);
-        }
-        cont = cont + 1;
+    while (current_node->x != end_node->x && current_node->y != end_node->y){
+        AddNeighbors(current_node);
+        current_node = RoutePlanner::NextNode();            
     }
+
+    m_Model.path = RoutePlanner::ConstructFinalPath(current_node); 
 }
